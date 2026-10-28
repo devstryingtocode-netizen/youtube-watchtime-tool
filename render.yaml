@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: youtube-watchtime-tool
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: BASE_URL
+        value: https://youtube-watchtime-tool.onrender.com
+      - key: YOUTUBE_API_KEY
+        sync: false

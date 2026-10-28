@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card calculator-card home-hero" aria-labelledby="page-title">
+    <p class="eyebrow">Playlist time, made clear</p>
+    <h1 id="page-title">Find the length of any <span>YouTube playlist</span></h1>
+    <p class="intro">Paste a playlist URL or video link below — up to 5 at once.</p>
+    <form class="ui-form" id="analysis-form">
+      <div class="field">
+        <label for="playlist-input">Playlist link, ID, or video URL — one per line (up to 5)</label>
+        <textarea id="playlist-input" name="input_text" rows="4" required maxlength="2000" placeholder="youtube.com/playlist?list=ID1&#10;youtube.com/playlist?list=ID2"></textarea>
+      </div>
+
+      <fieldset class="field settings-field">
+        <legend>Optional settings</legend>
+        <div class="settings-grid">
+          <div class="field">
+            <label class="sr-only" for="range-start">Range start</label>
+            <input id="range-start" name="range_start" type="number" min="1" max="500" placeholder="Range start">
+          </div>
+          <div class="field">
+            <label class="sr-only" for="range-end">Range end</label>
+            <input id="range-end" name="range_end" type="number" min="1" max="500" placeholder="Range end">
+          </div>
+          <div class="field">
+            <label class="sr-only" for="custom-speed">Custom playback speed</label>
+            <input id="custom-speed" name="custom_speed" type="number" min="0.1" max="10" step="0.01" placeholder="Speed (e.g. 2.25)">
+          </div>
+          <div class="field api-key-field">
+            <label class="sr-only" for="api-key">YouTube API key (optional)</label>
+            <input id="api-key" name="api_key" type="password" autocomplete="off" placeholder="YouTube API key (optional)">
+          </div>
+          <div class="field">
+            <label class="sr-only" for="videos-watched">Videos watched</label>
+            <input id="videos-watched" name="watched_count" type="number" min="0" max="500" value="0" placeholder="Videos watched">
+          </div>
+        </div>
+      </fieldset>
+
+      <button class="primary-button" type="submit">Analyze Playlist</button>
+      <p class="form-notice" id="form-notice" role="status" aria-live="polite"></p>
+      <p class="api-key-help">Analysis needs a server API key or the optional key above. Keys are not stored.</p>
+    </form>
+  </section>
+
+  <section class="results-section" id="analysis-results" aria-live="polite" aria-label="Playlist analysis results" hidden>
+    <h2 class="sr-only">Analysis results</h2>
+    <div class="results-list" id="results-list"></div>
+  </section>
+
+  <section class="card schedule-card" aria-labelledby="schedule-title">
+    <div class="schedule-heading">
+      <h2 id="schedule-title">Watch Schedule</h2>
+      <p data-schedule-message>Analyze a playlist first to see your schedule.</p>
+    </div>
+    <div class="schedule-content">
+      <div class="schedule-settings">
+        <div class="daily-time">
+          <div class="field">
+            <label for="hours-per-day">Hours per day</label>
+            <input id="hours-per-day" type="number" min="0" max="24" value="1">
+          </div>
+          <div class="field">
+            <label for="minutes-per-day">Minutes per day</label>
+            <input id="minutes-per-day" type="number" min="0" max="59" value="0">
+          </div>
+        </div>
+        <fieldset class="field watching-days">
+          <legend>Watching days</legend>
+          <div class="day-options">
+            {% for day in ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] %}
+              <label class="day-chip"><input type="checkbox" data-watch-day value="{{ loop.index0 }}" checked><span>{{ day }}</span></label>
+            {% endfor %}
+          </div>
+        </fieldset>
+        <div class="field speed-field">
+          <label for="schedule-speed">Speed</label>
+          <select id="schedule-speed">
+            <option>1.00x</option>
+            <option>1.25x</option>
+            <option>1.50x</option>
+            <option>1.75x</option>
+            <option>2.00x</option>
+          </select>
+        </div>
+        <label class="include-today"><input id="include-today" type="checkbox" checked> <span>Include today</span> <span class="muted">— Uncheck to start from tomorrow</span></label>
+      </div>
+      <div class="schedule-progress">
+        <div class="progress-ring" role="img" aria-label="Watch progress: 0 percent">
+          <div><strong>0%</strong><span>0/0</span></div>
+        </div>
+        <div class="finish-date"><span>Finish date</span><strong data-schedule-finish>—</strong><span>—</span></div>
+      </div>
+    </div>
+    <div class="schedule-totals">
+      <div><span>Watched</span><strong data-schedule-watched>—</strong></div>
+      <div><span>Remaining</span><strong data-schedule-remaining>—</strong></div>
+      <div><span>Total</span><strong data-schedule-total>—</strong></div>
+    </div>
+  </section>
+
+  <section class="card content-card">
+    <h2>How to use YouTube Playlist Length</h2>
+    <ol class="how-to-list">
+      <li><strong>Paste a playlist or video link</strong><p>Copy any YouTube playlist URL or video URL and paste it into the text box above.</p></li>
+      <li><strong>Set optional parameters</strong><p>Optionally limit the video range, set a custom playback speed, or enter how many videos you've already watched.</p></li>
+      <li><strong>Click Analyze Playlist</strong><p>See total duration at multiple speeds, plus progress tracking and a personalized watch schedule.</p></li>
+    </ol>
+  </section>
+
+  <section class="card content-card">
+    <h2>Why use YouTube Playlist Length?</h2>
+    <p>Whether you're planning to binge a full YouTube course, estimate how long a podcast playlist will take, or track your progress through a lecture series — this free tool gives you accurate watch-time estimates in seconds. No sign-up, no ads blocker needed, no data stored. Just paste, click, and know exactly when you'll finish.</p>
+  </section>
+
+  <section class="card content-card faq-card">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details><summary>How do I find the total length of a YouTube playlist?</summary><p>Paste the playlist URL into the box above and click "Analyze Playlist". The tool shows the total duration and watch times at different speeds.</p></details>
+      <details><summary>Can I see how long specific videos in a playlist will take?</summary><p>Yes — use the Range Start and Range End fields to select a subset of videos (for example, videos 10–50).</p></details>
+      <details><summary>Does this work with private playlists?</summary><p>Private playlists are not accessible through the public YouTube Data API. Unlisted playlists may work when you have their direct link.</p></details>
+      <details><summary>How accurate is the duration?</summary><p>Duration values come from YouTube's API. Unavailable or deleted videos are excluded from duration totals and identified in the results.</p></details>
+      <details><summary>Can I use my own YouTube API key?</summary><p>Yes — enter your YouTube Data API v3 key in the optional field. The key is used only for the current server request and is not stored.</p></details>
+      <details><summary>How does the Watch Schedule calculator work?</summary><p>Enter your daily viewing time, select the days you watch and choose a playback speed. The schedule skips unselected days when estimating a finish date.</p></details>
+    </div>
+  </section>
+{% endblock %}

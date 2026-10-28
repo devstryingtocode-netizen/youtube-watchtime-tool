@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card calculator-card" aria-labelledby="page-title">
+    <h1 id="page-title">Generate a YouTube timestamp link</h1>
+    <form class="ui-form tool-form" id="timestamp-form">
+      <div class="field">
+        <label for="timestamp-video-url">YouTube video URL or ID</label>
+        <input id="timestamp-video-url" name="video_input" type="text" autocomplete="url" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" required>
+      </div>
+      <div class="field">
+        <label for="timestamp-value">Timestamp</label>
+        <input id="timestamp-value" name="timestamp" type="text" inputmode="numeric" pattern="[0-9]+(:[0-9]{1,2}){0,2}" placeholder="Seconds, MM:SS, or HH:MM:SS" aria-describedby="timestamp-help timestamp-notice" required>
+        <p class="field-hint" id="timestamp-help">Examples: 90 seconds, 1:30, or 1:02:30. Minutes and seconds must be less than 60 when using HH:MM:SS.</p>
+      </div>
+      <button class="primary-button" type="submit">Generate Link</button>
+      <p class="form-notice" id="timestamp-notice" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <section class="card timestamp-result" id="timestamp-result" aria-label="Generated timestamp link" hidden>
+    <h2>Share your timestamp link</h2>
+    <p class="timestamp-output" id="timestamp-output"></p>
+    <div class="timestamp-actions">
+      <button class="primary-button" id="copy-timestamp-link" type="button">Copy link</button>
+      <a class="secondary-button" id="open-timestamp-link" href="#" target="_blank" rel="noopener noreferrer">Open link</a>
+    </div>
+  </section>
+  <section class="card content-card">
+    <h2>How to create a YouTube timestamp link</h2>
+    <ol class="how-to-list">
+      <li><strong>Paste a YouTube video URL</strong><p>Watch links, youtu.be short links, Shorts and embed URLs are supported.</p></li>
+      <li><strong>Enter the start time</strong><p>Use seconds, minutes and seconds, or hours, minutes and seconds.</p></li>
+      <li><strong>Copy and share the generated link</strong><p>Copy the new URL or open it to check that it starts at the selected point.</p></li>
+    </ol>
+  </section>
+  <section class="card content-card">
+    <h2>Why use YouTube Timestamp Link Generator?</h2>
+    <p>Share a video that starts at a specific point to save time for friends, students and teammates. The link uses YouTube's standard start-time parameter.</p>
+  </section>
+  <section class="card content-card faq-card">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details><summary>How does a YouTube timestamp link work?</summary><p>A timestamp parameter asks the video player to start at a particular point in the video.</p></details>
+      <details><summary>Do timestamped links work on mobile and in the YouTube app?</summary><p>They use YouTube's standard video URL format; behavior may vary between apps and browsers.</p></details>
+      <details><summary>Can I use a youtu.be short link?</summary><p>Yes. The generated link is normalized to a standard YouTube watch URL.</p></details>
+      <details><summary>How do I make an embedded video start at a specific time?</summary><p>This generator creates a watch link. Embed players use a separate start parameter.</p></details>
+      <details><summary>Why does my browser sometimes ignore the timestamp?</summary><p>Player behavior can depend on the app, browser and URL format.</p></details>
+      <details><summary>Can I create a link that starts and ends at specific times?</summary><p>This tool sets a start time only.</p></details>
+    </div>
+  </section>
+{% endblock %}

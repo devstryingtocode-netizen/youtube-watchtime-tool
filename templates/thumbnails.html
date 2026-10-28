@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card calculator-card" aria-labelledby="page-title">
+    <h1 id="page-title">Download thumbnails for any YouTube video</h1>
+    <form class="ui-form tool-form" id="thumbnail-form">
+      <div class="field">
+        <label for="video-url">Paste a YouTube video link or ID</label>
+        <div class="inline-form">
+          <input id="video-url" name="video_input" type="text" autocomplete="url" aria-describedby="thumbnail-notice" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" required>
+          <button class="primary-button" type="submit">Get Thumbnails</button>
+        </div>
+      </div>
+      <p class="form-notice" id="thumbnail-notice" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+  <section class="card thumbnail-results" id="thumbnail-results" aria-label="Available YouTube thumbnails" hidden>
+    <h2>Available thumbnail sizes</h2>
+    <div class="thumbnail-grid" id="thumbnail-grid"></div>
+  </section>
+
+  <section class="card content-card">
+    <h2>How to download a YouTube thumbnail</h2>
+    <ol class="how-to-list">
+      <li><strong>Copy any YouTube video URL</strong><p>Watch URLs, youtu.be short links, embed URLs and Shorts links are supported.</p></li>
+      <li><strong>Paste it into the box above</strong><p>The tool checks YouTube's public thumbnail variants for the video.</p></li>
+      <li><strong>Open or download a size</strong><p>Choose an available size. If your browser blocks direct downloads, open the image and use Save image as.</p></li>
+    </ol>
+  </section>
+  <section class="card content-card">
+    <h2>Why use YouTube Thumbnail Downloader?</h2>
+    <p>Creators, designers, bloggers and students often need thumbnail assets for their work. Preview the image sizes YouTube makes available without an account or API key.</p>
+  </section>
+  <section class="card content-card faq-card">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details><summary>What thumbnail sizes does this tool support?</summary><p>The tool checks maximum, standard, high, medium and default YouTube thumbnail variants. Not every video has every size.</p></details>
+      <details><summary>Is it legal to download a YouTube thumbnail?</summary><p>Respect the creator's rights and YouTube's terms when using thumbnail images.</p></details>
+      <details><summary>Why do some videos not have a max-resolution thumbnail?</summary><p>Some videos do not have every resolution available. The unavailable variants are marked instead of shown as valid images.</p></details>
+      <details><summary>Can I download the animated "hover" preview?</summary><p>No. This tool provides static thumbnail images only.</p></details>
+      <details><summary>Do I need an API key or an account?</summary><p>No API key or account is required to preview public thumbnail URLs.</p></details>
+      <details><summary>Do you store the URLs I paste?</summary><p>The video ID is used to construct public image URLs and is not stored by this app.</p></details>
+    </div>
+  </section>
+{% endblock %}
