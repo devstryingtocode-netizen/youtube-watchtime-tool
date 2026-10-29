@@ -3,6 +3,11 @@ Here lol- https://yt-watchtime-enhancer.vercel.app/
 
 A simple tool for checking the total duration of a YouTube playlist and figuring out how long it would take to watch at different playback speeds.
 
+## Deployment
+
+The application is deployed here:
+
+https://yt-watchtime-enhancer.vercel.app/
 ## Features
 
 - Calculate the total duration of a YouTube playlist
